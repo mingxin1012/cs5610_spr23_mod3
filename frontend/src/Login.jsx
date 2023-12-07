@@ -1,50 +1,46 @@
-import axios from 'axios';
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
+import React, { useState } from 'react';
+import axios from 'axios';
+import Navbar from './Navbar';
+import './Login.css';
 
-export default function Login() {
-    const [usernameInput, setUsernameInput] = useState('');
-    const [passwordInput, setPasswordInput] = useState('');
+function Login() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-    const [error, setErrorValue] = useState('');
-    const navigate = useNavigate();
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    setError('');
 
-    function setUsername(event) {
-        const username = event.target.value;
-        setUsernameInput(username);
+    try {
+      const response = await axios.post('/api/users/login', { username, password });
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('activeUsername', username);
+      navigate('/');
+    } catch (error) {
+      setError('Login failed: ' + error.response.data.message); 
     }
+  };
 
-    function setPassword(event) {
-        const pswd = event.target.value;
-        setPasswordInput(pswd);
-    }
-
-    async function submit() {
-        setErrorValue('');
-        try {
-            const response = await axios.post('/api/users/login', {username: usernameInput, password: passwordInput})
-            navigate('/');
-        } catch (e) {
-            setErrorValue(e.response.data)
-        }
-
-        // console.log(usernameInput, passwordInput);
-    }
-
-    return (
-        <div>
-            <h1>Login</h1>
-            {!!error && <h2>{error}</h2>}
-            <div>
-                <span>Username: </span><input type='text' value={usernameInput} onInput={setUsername}></input>
-            </div>
-            <div>
-                <span>Password: </span><input type='text' value={passwordInput} onInput={setPassword}></input>
-            </div>
-
-            <button onClick={submit}>Create Account/Login</button>
-        </div>
-    )
-
-
+  return (
+    <>
+      <Navbar />
+      <form onSubmit={handleLogin} className="login-form">
+        <label>
+          Username:
+          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+        </label>
+        <label>
+          Password:
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </label>
+        <button type="submit">Login</button>
+        {error && <p className="error">{error}</p>}
+      </form>
+    </>
+  );
 }
+
+export default Login;

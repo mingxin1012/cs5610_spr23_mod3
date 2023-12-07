@@ -1,0 +1,94 @@
+
+.status-update-container {
+    max-width: 600px;
+    margin: 2px auto;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #f9f9f9;
+    position: relative;
+  }
+  
+  .status-update-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .status-update-actions textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .status-update-actions button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .status-update-actions button:hover {
+    background-color: #0056b3;
+  }
+  
+
+  .user-profile {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  
+  .user-name {
+    font-size: 1.5em;
+    color: #007bff;
+  }
+  
+  .user-joined {
+    color: #666;
+    font-size: 0.9em;
+  }
+  
+  .user-description-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  
+  .user-description {
+    margin: 0;
+    flex-grow: 1;
+  }
+  
+  .description-edit {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .save-btn, .edit-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .save-btn:hover, .edit-btn:hover {
+    background-color: #0056b3;
+  }
+  

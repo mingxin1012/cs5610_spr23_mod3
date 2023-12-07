@@ -1,0 +1,29 @@
+.status-update-post {
+  max-width: 600px;
+  margin: 10px auto;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: #f9f9f9;
+  border-left: 4px solid #007bff;
+}
+
+.status-update-post .username {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.status-update-post .username:hover {
+  text-decoration: underline;
+}
+
+.status-update-post .timestamp {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.status-update-post div {
+  line-height: 1.5;
+}

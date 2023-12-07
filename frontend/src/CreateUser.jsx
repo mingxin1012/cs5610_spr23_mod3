@@ -1,49 +1,45 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router';
+import './CreateUser.css';
+import Navbar from './Navbar';
 
-export default function CreateUser() {
-    const [usernameInput, setUsernameInput] = useState('');
-    const [passwordInput, setPasswordInput] = useState('')
-    const [error, setError] = useState('');
+function CreateUser() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+  
+  const handleRegister = async (event) => {
+    event.preventDefault();
+    setError('');
 
-    const navigate = useNavigate();
-
-    function setUsername(event) {
-        const username = event.target.value;
-        setUsernameInput(username);
+    try {
+      await axios.post('/api/users/register', { username, password });
+      localStorage.setItem('activeUsername', username);
+      navigate('/')
+    } catch (error) {
+      setError('Registration failed: ' + error.response.data);
     }
+  };
 
-    function setPassword(event) {
-        const pswd = event.target.value;
-        setPasswordInput(pswd);
-    }
-
-    async function submit() {
-        try {
-            const response = await axios.post('/api/users/register', {username: usernameInput, password: passwordInput})
-            navigate('/')
-        } catch (error) {
-            console.log(error)
-            setError(error.response.data)
-        }
-        // console.log(usernameInput, passwordInput);
-    }
-
-    return (
-        <div>
-            <h1>Register New User</h1>
-            {!!error && <h3>{error}</h3>}
-            <div>
-                <span>Username: </span><input type='text' value={usernameInput} onInput={setUsername}></input>
-            </div>
-            <div>
-                <span>Password: </span><input type='text' value={passwordInput} onInput={setPassword}></input>
-            </div>
-
-            <button onClick={submit}>Create Account/Login</button>
-        </div>
-    )
-
-
+  return (
+    <>
+      <Navbar />
+      <form onSubmit={handleRegister} className="create-user-form">
+        <label>
+          Username:
+          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+        </label>
+        <label>
+          Password:
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </label>
+        <button type="submit">Register</button>
+        {error && <p className="error">{error}</p>}
+      </form>
+    </>
+  );
 }
+
+export default CreateUser;

@@ -1,22 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
-import Pokemons from './Pokemons'
+import { UserProvider } from './UserContext'; 
 
 import {
   createBrowserRouter,
   RouterProvider,
   Route,
 } from "react-router-dom";
-import PokemonDetail from './PokemonDetail';
 import Login from './Login';
 import CreateUser from './CreateUser';
+import UserPage from './UserPage';
+import HomePage from './HomePage';
 
 const router = createBrowserRouter([
-  {
-    path: '/pokemon/:pokemonId',
-    element: <PokemonDetail />
-  },
   {
     path: '/login',
     element: <Login />
@@ -26,17 +22,21 @@ const router = createBrowserRouter([
     element: <CreateUser />
   },
   {
-    path: '/',
-    element: <Pokemons />
+    path: '/:username',
+    element: <UserPage />
   },
-
-
+  {
+    path: '/',
+    element: <HomePage />
+  }
 ])
 
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router } />
-  </React.StrictMode>,
-)
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
+  </React.StrictMode>
+);
